@@ -22,6 +22,11 @@
     <groupId>org.apache.bookkeeper</groupId>
     <version>4.15.0-SNAPSHOT</version>
   </parent>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
+  </properties>
+  
   <artifactId>bookkeeper-server</artifactId>
   <name>Apache BookKeeper :: Server</name>
   <dependencies>
@@ -178,6 +183,14 @@
       <version>${project.parent.version}</version>
       <scope>test</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/junit/junit -->
+<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.12</version>
+    <scope>test</scope>
+</dependency>
+    
   </dependencies>
   <build>
     <plugins>
@@ -222,6 +235,7 @@
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
       </plugin>
+      <!--  
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -236,6 +250,7 @@
           </properties>
         </configuration>
       </plugin>
+      -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -299,6 +314,8 @@
       </build>
     </profile>
     <!-- test profiles -->
+    
+    <!--  -
     <profile>
       <id>skipBookKeeperServerTests</id>
       <activation>
@@ -318,5 +335,6 @@
         </plugins>
       </build>
     </profile>
+    -->
   </profiles>
 </project>
