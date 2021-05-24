@@ -1,6 +1,8 @@
 language: java
 jdk:
   - openjdk8
+before_script:
+ - chmod +x gradlew
 notifications:
   email: false
 addons:
