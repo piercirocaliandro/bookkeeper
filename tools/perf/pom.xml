@@ -52,6 +52,12 @@
       <groupId>org.hdrhistogram</groupId>
       <artifactId>HdrHistogram</artifactId>
     </dependency>
+    <dependency>
+		<groupId>org.apache.maven.surefire</groupId>
+		<artifactId>surefire</artifactId>
+		<version>3.0.0-M5</version>
+		<type>pom</type>
+    </dependency>
   </dependencies>
 
 </project>
