@@ -1,18 +1,6 @@
 language: java
-jdk:
-  - openjdk8
-before_script:
- - chmod +x gradlew
+install: true
 notifications:
   email: false
-addons:
-  sonarcloud:
-    organization: "piercirocaliandro"
-    token:
-      secure: "fc33HMRbnL1xs9L9t2LS82U6vxZiPv9Vip4v6Rc/px83HU+sf7+NqUS0v8KQCgESZXtO5ITvy0pYP+XRBFZVWGG5rgKEeh1M49j0FzjtlpfIQLXtFo8aigJSspkCZdzYwfWHojT7KGJP1XVIMW75Tpc8MYkR0B83WHMBhHBOtXmfPvgCtPGZDm+ZS0A9DZ34fdgHW+CHw+4yZ+RV2vDwqeJ2lFZR5to2z5mO+1EPmQUd2zEBMPEdq1Bq+YOSUB9f3KqyZYitmdi01+NCKqGL5+YUe534iJu+3llv88z1nyPaB1QakQN7dJ0XbjxwOxtRvdZrnqZoAWtmKEtXZghfxJu70WQ853Jclz5Mk60fG9g8KP91jrk3Pi6LR14bckyoU6yOQFuE6BAF5T/ZZvDHp9vgLfOPbF/9oK077xGq6DdKz5axluFacvasMTPDEbOURSOSt9Zu6bhfZlyyrmaDnX4x9TXnH/65afUy0vMI3+sOXpfv71JjPO3YnZ3xCX+qcQPeUQqGoSkmWg5Ux1ciVLzPGsv4ZdCnHcLzm40zEvIidBO0e7kYUDQBfQD2mfbsCCTXXcyFc9+qJuChZ7XLZj60153qBs6RNVS0o/20DbwE4NycSh5rnk7OvaL7UZhghR7SKh5uXLQZ68CRGOy2ZyTEQwLyfHMTVHqf/KLJxFM=" # encrypted value of your token
-script:
-  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-  - mvn clean verify #org.jacoco:jacoco-maven-plugin:prepare-agent verify #sonar:sonar #-Dsonar.projectKey=piercirocaliandro_bookkeeper3
-env:
-  global:
-    secure: fc33HMRbnL1xs9L9t2LS82U6vxZiPv9Vip4v6Rc/px83HU+sf7+NqUS0v8KQCgESZXtO5ITvy0pYP+XRBFZVWGG5rgKEeh1M49j0FzjtlpfIQLXtFo8aigJSspkCZdzYwfWHojT7KGJP1XVIMW75Tpc8MYkR0B83WHMBhHBOtXmfPvgCtPGZDm+ZS0A9DZ34fdgHW+CHw+4yZ+RV2vDwqeJ2lFZR5to2z5mO+1EPmQUd2zEBMPEdq1Bq+YOSUB9f3KqyZYitmdi01+NCKqGL5+YUe534iJu+3llv88z1nyPaB1QakQN7dJ0XbjxwOxtRvdZrnqZoAWtmKEtXZghfxJu70WQ853Jclz5Mk60fG9g8KP91jrk3Pi6LR14bckyoU6yOQFuE6BAF5T/ZZvDHp9vgLfOPbF/9oK077xGq6DdKz5axluFacvasMTPDEbOURSOSt9Zu6bhfZlyyrmaDnX4x9TXnH/65afUy0vMI3+sOXpfv71JjPO3YnZ3xCX+qcQPeUQqGoSkmWg5Ux1ciVLzPGsv4ZdCnHcLzm40zEvIidBO0e7kYUDQBfQD2mfbsCCTXXcyFc9+qJuChZ7XLZj60153qBs6RNVS0o/20DbwE4NycSh5rnk7OvaL7UZhghR7SKh5uXLQZ68CRGOy2ZyTEQwLyfHMTVHqf/KLJxFM=
+script: mvn clean verify
+
