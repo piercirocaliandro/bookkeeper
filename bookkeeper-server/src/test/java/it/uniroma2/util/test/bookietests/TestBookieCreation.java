@@ -1,8 +1,7 @@
-package it.uniroma2.util.test;
+package it.uniroma2.util.test.bookietests;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,17 +14,23 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 
+
 @RunWith(value = Parameterized.class)
 public class TestBookieCreation {
 	private ServerConfiguration conf;
+	
+	private Bookie bookie;
+	
 	
 	@Parameters
 	public static Iterable<Object[]> getParams(){
 		return Arrays.asList(new Object[][] { 
             { 8000, true},
-            { 2000, false}, 
-            { 0, false},
-            { 0, true}
+            {8001, false},
+            {0, true},
+            {-1, true},
+            { 9000, true},
+            { 9001, true},
       });
 	}
 	
@@ -39,17 +44,10 @@ public class TestBookieCreation {
 	@Test
 	public void testCreation() throws Exception{
 		try {
-			Bookie bk1 = new Bookie(conf);
-			assertNotNull(bk1);
+			this.bookie = new Bookie(conf);
+			assertNotNull(this.bookie);
 		}catch(RuntimeException e) {
 			Logger.getLogger("BT").log(Level.SEVERE, "Cannot listen on 127.0.0.1 \n");
 		}
-		
-		/*ByteBuf newEntry = Unpooled.wrappedBuffer(new byte[1024*1024]);
-		newEntry.setByte(5, 3);
-		long ledgerID = newEntry.getLong(newEntry.readerIndex());
-		
-		bk1.addEntry(newEntry, false, null, null, "key".getBytes());
-		assertNotEquals(0, bk1.getListOfEntriesOfLedger(ledgerID));*/
 	}
 }
