@@ -84,7 +84,7 @@ public class TestBoookieStaticsServConf {
 	
 	
 	@Test
-	public void testBookieId() {
+	public void testBookieStatics() {
 		BookieId bkId;
 		try {
 			if(this.conf.getBookieId() != null) {
