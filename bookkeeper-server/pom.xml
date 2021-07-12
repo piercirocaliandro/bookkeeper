@@ -342,5 +342,33 @@
       </build>
     </profile>
     -->
-  </profiles>
+    <!-- PIT profile for mutation testing -->
+    <profile>
+      <id>PIT-bookkeeper-profile</id>
+        <activation>
+	  <activeByDefault>true</activeByDefault>
+	</activation>
+	<build>
+	  <plugins>
+	    <plugin>
+	      <groupId>org.pitest</groupId>
+	      <artifactId>pitest-maven</artifactId>
+    	      <version>1.6.7</version>
+    		
+    	      <!-- Just mutate the classes that have been tested -->
+    	      <configuration>
+                <targetClasses>
+                  <param>org.apache.bookkeeper.bookie.Bookie</param>
+                  <param>org.apache.bookkeeper.util.AvailabilityOfEntriesOfLedger</param>
+        	</targetClasses>
+        	<targetTests>
+                  <param>it.uniroma2.util.test.avofentriestests*</param>
+                  <param>it.uniroma2.util.test.bookietests*</param>
+                </targetTests>
+    	      </configuration>
+ 	    </plugin>
+	  </plugins>
+        </build>
+      </profile>
+    </profiles>
 </project>

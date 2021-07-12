@@ -1,14 +1,11 @@
 package it.uniroma2.util.test.bookietests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.apache.bookkeeper.bookie.Bookie;
 import org.apache.bookkeeper.bookie.BookieException;
@@ -21,6 +18,7 @@ import org.junit.runners.Parameterized.Parameters;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import it.uniroma2.util.test.bookietests.utils.BookieUtils;
 
 @RunWith(value=Parameterized.class)
 public class TestBookieAddEntry {
@@ -50,14 +48,10 @@ public class TestBookieAddEntry {
 			{1L, 1L, false, mock(WriteCallback.class), new Object(), "key".getBytes()},
 			{1L, 1L, false, null, new Object(), "key".getBytes()},
 			{1L, 1L, true, mock(WriteCallback.class), new Object(), "key".getBytes()},
-			//{null, false, mock(WriteCallback.class), new Object(), "key".getBytes()},
 			{0L, 0L, false, 
 				mock(WriteCallback.class), new Object(), "key".getBytes()},
-			//{-1L, 1L, true, mock(WriteCallback.class), new Object(), "key".getBytes()},
-			//{-1L, -1L, false, null, new Object(), "key".getBytes()},
 			{Long.MAX_VALUE, 1L, false, mock(WriteCallback.class), null, "key".getBytes()},
 			{1L, Long.MAX_VALUE, false, mock(WriteCallback.class), new Object(), "".getBytes()},
-			//{newEntry, false, mock(WriteCallback.class), new Object(), null},
 		});
 	}
 	
@@ -90,21 +84,16 @@ public class TestBookieAddEntry {
 		this.conf.setAllowLoopback(true);
 		this.conf.setBookiePort(8000);
 		
-		try {
-			this.bookie = new Bookie(conf);
-		} catch (IOException | InterruptedException | BookieException e) {
-			Logger.getLogger("TBE").log(Level.SEVERE, "failed to create Bookie \n");
-		}
+		this.bookie = BookieUtils.getBookieInstance();
 	}
 	
 	
 	@Test
 	public void testEntryCreation() 
 			throws IOException, BookieException, InterruptedException {
-		//this.bookie.start();
 		
 		this.bookie.addEntry(this.entry, this.ackBeforeSync, this.cb, this.ctx, this.masterKey);
 		assertEquals(this.entry, this.bookie.readEntry(this.ledgerId, this.entryId));
-		assertTrue(this.bookie.readLastAddConfirmed(this.ledgerId) >= 0);
+		assertTrue(this.bookie.readLastAddConfirmed(this.ledgerId) > 0);
 	}
 }

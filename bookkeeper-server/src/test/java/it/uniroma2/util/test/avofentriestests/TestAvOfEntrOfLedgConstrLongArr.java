@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.PrimitiveIterator;
 
 import org.apache.bookkeeper.util.AvailabilityOfEntriesOfLedger;
 import org.apache.log4j.Level;
@@ -19,7 +18,6 @@ import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(value = Parameterized.class)
 public class TestAvOfEntrOfLedgConstrLongArr {
-	private PrimitiveIterator.OfLong primitiveIterator;
 	private long[] entriesOfLedger;
 	
 	private AvailabilityOfEntriesOfLedger aOfEntriesLedg;
@@ -38,6 +36,11 @@ public class TestAvOfEntrOfLedgConstrLongArr {
 	
 	
 	public TestAvOfEntrOfLedgConstrLongArr(long[] entries) {
+		this.configure(entries);
+	}
+	
+	
+	private void configure(long[] entries) {
 		this.entriesOfLedger = entries;
 	}
 	

@@ -21,6 +21,7 @@ public class TestAvOfEntryConstByteArr {
 	private byte[] serStateOfEntr;
 	
 	private AvailabilityOfEntriesOfLedger avOfEntr;
+	private Logger logger;
 	
 	
 	@Parameters
@@ -32,16 +33,16 @@ public class TestAvOfEntryConstByteArr {
 		for(int i = 0; i < 256; i++)
 			ill[i] = 1;
 		
-		/*byte[] valid = new byte[128];
+		byte[] valid = new byte[128];
 		for(int i = 0; i <= 57; i++)
 			valid[i] = 0;
 		
 		for(int j = 58; j < 128; j++)
-			valid[j] = 1;*/
+			valid[j] = 1;
 			
 		return Arrays.asList(new byte[][] {
 			ill,
-			//valid,
+			valid,
 			new byte[256],
 			null
 		});
@@ -49,7 +50,13 @@ public class TestAvOfEntryConstByteArr {
 	
 	
 	public TestAvOfEntryConstByteArr(byte[] serState) {
+		this.configure(serState);
+	}
+	
+	
+	private void configure(byte[] serState) {
 		this.serStateOfEntr = serState;
+		this.logger = Logger.getLogger("AOE");
 	}
 	
 	
@@ -59,7 +66,7 @@ public class TestAvOfEntryConstByteArr {
 			this.avOfEntr = new AvailabilityOfEntriesOfLedger(this.serStateOfEntr);
 			assertNotNull(this.avOfEntr);
 		}catch(NullPointerException | ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
-			Logger.getLogger("AOE").log(Level.WARNING, "Invalid value for byte[] array");
+			this.logger.log(Level.WARNING, "Invalid value for byte[] array");
 		}
 	}
 }

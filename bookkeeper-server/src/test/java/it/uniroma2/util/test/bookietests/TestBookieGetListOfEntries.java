@@ -1,5 +1,6 @@
 package it.uniroma2.util.test.bookietests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class TestBookieGetListOfEntries {
 	private long ledgerId;
 	
 	private Bookie bookie;
+	private Logger logger;
 	
 	
 	@Parameters
@@ -52,6 +54,7 @@ public class TestBookieGetListOfEntries {
 		entry.writeLong(1L);
 		entry.writeBytes(("entry-" + 1L).getBytes());
 		
+		this.logger = Logger.getLogger("BGE");
 		this.bookie = BookieUtils.getBookieInstance();
 		this.bookie.addEntry(entry, false, null, bookie, "key".getBytes());
 	}
@@ -61,9 +64,12 @@ public class TestBookieGetListOfEntries {
 	public void testEntryCreation() {
 		 
 		try {
-			assertTrue(this.bookie.getListOfEntriesOfLedger(this.ledgerId).hasNext());
+			if(this.bookie.getListOfEntriesOfLedger(this.ledgerId) != null)
+				assertTrue(this.bookie.getListOfEntriesOfLedger(this.ledgerId).hasNext());
+			else
+				assertEquals(null, this.bookie.getListOfEntriesOfLedger(this.ledgerId));
 		} catch (IOException e) {
-			Logger.getLogger("BGE").log(Level.SEVERE, "An error occurred during the test \n");
+			this.logger.log(Level.SEVERE, "An error occurred during the test \n");
 		}
 	}
 }

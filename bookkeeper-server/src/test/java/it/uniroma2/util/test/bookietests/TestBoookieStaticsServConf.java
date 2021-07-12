@@ -1,6 +1,7 @@
 package it.uniroma2.util.test.bookietests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.net.UnknownHostException;
 import java.util.Arrays;
@@ -10,15 +11,13 @@ import java.util.logging.Logger;
 
 import org.apache.bookkeeper.bookie.Bookie;
 import org.apache.bookkeeper.conf.ServerConfiguration;
+import org.apache.bookkeeper.net.BookieId;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-/* Test some statics methods that deals with ServerConfiguration 
- * 
- * N.B: added to increment coverage 
- * */
+/* Test some statics methods that deals with ServerConfiguration  */
 
 
 @RunWith(value = Parameterized.class)
@@ -86,22 +85,23 @@ public class TestBoookieStaticsServConf {
 	
 	@Test
 	public void testBookieId() {
-		System.out.println(this.conf.getAdvertisedAddress());
+		BookieId bkId;
 		try {
 			if(this.conf.getBookieId() != null) {
-				assertEquals(this.conf.getBookieId(), Bookie.getBookieId(this.conf).getId());
+				bkId = Bookie.getBookieId(this.conf);
+				
+				assertEquals(this.conf.getBookieId(), bkId.getId());
 				assertEquals(this.conf.getAdvertisedAddress(), 
 						Bookie.getBookieAddress(this.conf).getHostName());
 				assertEquals(this.conf.getBookiePort(), 
 						Bookie.getBookieAddress(this.conf).getPort());
 			}
 			else {
-				//assertEquals("127.0.1.1:3181", Bookie.getBookieId(this.conf).getId());
-				//assertEquals("127.0.1.1", Bookie.getBookieAddress(this.conf).getHostName());
 				assertEquals(3181, Bookie.getBookieAddress(this.conf).getPort());
 			}
+			assertNotNull(Bookie.getBookieId(this.conf));
 		} catch (UnknownHostException e) {
-			this.logger.log(Level.SEVERE, e.getMessage());//"Errors in the ServerConfiguration\n");
+			this.logger.log(Level.SEVERE, "Errors in the ServerConfiguration\\n");
 		}
 	}
 }

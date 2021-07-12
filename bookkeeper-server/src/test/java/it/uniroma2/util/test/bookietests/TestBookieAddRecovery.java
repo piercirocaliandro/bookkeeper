@@ -32,6 +32,7 @@ public class TestBookieAddRecovery {
 	private byte[] masterKey;
 	
 	private Bookie bookie;
+	private Logger logger;
 	
 	
 	@Parameters
@@ -50,7 +51,6 @@ public class TestBookieAddRecovery {
 			{Unpooled.buffer(128), mock(WriteCallback.class), new Object(), "masterkey".getBytes()},
 			{entry, mock(WriteCallback.class), new Object(), "masterkey".getBytes()},
 			
-			//added to increment coverage
 			{entry, mock(WriteCallback.class), new Object(), "".getBytes()},
 		});
 	}
@@ -71,6 +71,7 @@ public class TestBookieAddRecovery {
 		
 		this.bookie = BookieUtils.getBookieInstance();
 		this.bookie.fenceLedger(1L, this.masterKey);
+		this.logger = Logger.getLogger("BAR");
 	}
 	
 	
@@ -80,7 +81,7 @@ public class TestBookieAddRecovery {
 			this.bookie.recoveryAddEntry(this.entry, this.cb, this.ctx, this.masterKey);
 			assertEquals(this.entry, this.bookie.readEntry(1L, 1L));
 		} catch (IOException | BookieException | InterruptedException e) {
-			Logger.getLogger("BAR").log(Level.WARNING, "Failed to add recovery\n");
+			this.logger.log(Level.WARNING, "Failed to add recovery\n");
 		}
 	}
 }

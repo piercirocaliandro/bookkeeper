@@ -333,21 +333,39 @@
   	</dependency>
   </dependencies>
   
-  <build>
-  <plugins>
-    <plugin>
-      <groupId>org.jacoco</groupId>
-      <artifactId>jacoco-maven-plugin</artifactId>
-      <executions>
-        <execution>
-          <id>report</id>
-          <goals>
-            <goal>report-aggregate</goal>
-          </goals>
-          <phase>verify</phase>
-        </execution>
-      </executions>
-    </plugin>
-  </plugins>
-</build>
+  <profiles>
+    <profile>
+      <id>jacoco-coverage-aggregate</id>
+      <activation>
+	<activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+              <artifactId>jacoco-maven-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>report</id>
+                  <goals>
+                    <goal>report-aggregate</goal>
+                  </goals>
+                  <phase>verify</phase>
+                </execution>
+              </executions>
+            </plugin>
+          </plugins>
+        </build>
+      </profile>
+      
+       <profile>
+         <id>skip-pitest</id>
+         <activation>
+	   <activeByDefault>true</activeByDefault>
+         </activation>
+         <properties>
+           <pitest.skip>true</pitest.skip>
+         </properties>
+      </profile>
+    </profiles>
 </project>

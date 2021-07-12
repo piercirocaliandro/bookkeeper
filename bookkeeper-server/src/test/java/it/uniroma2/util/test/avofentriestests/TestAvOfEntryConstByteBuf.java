@@ -22,6 +22,7 @@ import io.netty.buffer.Unpooled;
 public class TestAvOfEntryConstByteBuf {
 	private ByteBuf bytebuf;
 	private AvailabilityOfEntriesOfLedger avOfEntries;
+	private Logger logger;
 	
 	
 	@Parameters
@@ -45,7 +46,13 @@ public class TestAvOfEntryConstByteBuf {
 	
 	
 	public TestAvOfEntryConstByteBuf(ByteBuf byteBuf) {
+		this.configure(byteBuf);
+	}
+	
+	
+	private void configure(ByteBuf byteBuf) {
 		this.bytebuf = byteBuf;
+		this.logger = Logger.getLogger("AOE");
 	}
 	
 	
@@ -55,7 +62,7 @@ public class TestAvOfEntryConstByteBuf {
 			this.avOfEntries = new AvailabilityOfEntriesOfLedger(this.bytebuf);
 			assertNotNull(this.avOfEntries);
 		}catch(NullPointerException | IllegalArgumentException e ) {
-			Logger.getLogger("AOE").log(Level.WARNING, "Invalid value for ByteBuf");
+			this.logger.log(Level.WARNING, "Invalid value for ByteBuf");
 		}
 	}
 }

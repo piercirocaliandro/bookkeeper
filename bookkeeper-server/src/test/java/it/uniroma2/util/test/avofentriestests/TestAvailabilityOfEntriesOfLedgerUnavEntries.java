@@ -18,7 +18,7 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(value = Parameterized.class)
 public class TestAvailabilityOfEntriesOfLedgerUnavEntries {
 	private AvailabilityOfEntriesOfLedger avOfEntries;
-	private long[] entries = {1L, 2L, 3L, 4L, 5L, 6L};
+	private long[] entries = {-2L, -1L, 0L, 1L, 2L, 3L, 4L, 5L, 6L};
 	
 	private long startId;
 	private long lastId;
@@ -31,7 +31,6 @@ public class TestAvailabilityOfEntriesOfLedgerUnavEntries {
 		for(int i = 0; i < 5; i++)
 			bs1.set(i, true);
 		
-		// added trying to increase coverage
 		BitSet bs2 = new BitSet(6);
 		for(int i = 0; i <= 2; i++)
 			bs2.set(i, false);
@@ -48,15 +47,15 @@ public class TestAvailabilityOfEntriesOfLedgerUnavEntries {
 		return Arrays.asList(new Object[][] {
 			{1L, 2L, bs1},
 			{2L, 1L, bs1},
-			//{-1L, 0L, new BitSet(10)},
 			{1L, 2L, bs1},
 			{0L, 0L, bs1},
 			{7L, 8L, bs1},
 			
-			//added to increase coverage
+			{-1L, 2L, bs1},
+			{-2L, -1L, bs1},
+			
 			{1L, 2L, bs2},
 			{1L, 2L, bs3},
-			//{1L, 10L, bs3},
 		});
 	}
 	
